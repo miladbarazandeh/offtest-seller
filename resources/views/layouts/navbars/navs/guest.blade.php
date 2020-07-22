@@ -16,6 +16,11 @@
             <i class="material-icons">fingerprint</i> {{ __('Login') }}
           </a>
         </li>
+        <li class="nav-item{{ $activePage == 'register' ? ' active' : '' }}">
+          <a href="{{ route('register') }}" class="nav-link">
+            <i class="material-icons">person_add</i> {{ __('Register') }}
+          </a>
+        </li>
       </ul>
     </div>
   </div>

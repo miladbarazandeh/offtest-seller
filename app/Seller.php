@@ -6,11 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class Seller extends Authenticatable
 {
     use Notifiable;
 
-    const TABLE = 'users';
+    const TABLE = 'sellers';
     const COLUMN_ID = 'id';
 
     /**
@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'phone'
     ];
 
     /**

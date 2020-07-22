@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateUsersTable extends Migration
+class CreateSellersTable extends Migration
 {
     const STATUS_NEW = 'new';
     const STATUS_PENDING = 'pending';
@@ -29,11 +29,11 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('sellers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('phone_number')->unique();
+            $table->string('name')->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('phone')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('phone_verified_at')->nullable();
             $table->enum('status', self::STATUS_ALL);
@@ -50,6 +50,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('sellers');
     }
 }
