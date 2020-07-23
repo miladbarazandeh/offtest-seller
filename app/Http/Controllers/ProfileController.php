@@ -9,11 +9,9 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\SellerPromotion;
 use App\Seller;
 use Auth;
 use Illuminate\Http\Request;
-use DateTime;
 
 class ProfileController extends Controller
 {
@@ -27,7 +25,7 @@ class ProfileController extends Controller
         $this->middleware('auth');
     }
 
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         /** @var Seller $seller */
         $seller = Auth::user();
