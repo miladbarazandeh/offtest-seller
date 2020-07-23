@@ -200,5 +200,12 @@ return [
         'rules' => 'شرایط و قوانین',
         'link' => 'لینک',
         'family' => 'نام خانوادگی',
+        'url' => 'لینک',
+        'timpestamp-start_at' => "تاریخ شروع",
+        'timpestamp-end_at' => "تاریخ پایان",
+        'full_price' => 'قیمت اصلی',
+        'tester_price' => 'قیمت تستر',
+        'minimum_user_experience' => 'حداقل امتیاز مشتری',
+        'available_product_count' => 'تعداد محصول',
     ],
 ];

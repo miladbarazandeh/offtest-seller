@@ -3,9 +3,11 @@ namespace App\Models;
 
 use App\User;
 
-class PromotionUser extends baseModel
+class PromotionUser extends BaseModel
 {
     const TABLE = 'promotion_users';
+
+    const PROMOTION_SELLER_CACHE_KEY = 'promotion:seller';
 
     const COLUMN_USER_ID = 'user_id';
 

@@ -4,19 +4,25 @@ namespace App\Models;
 use App\User;
 use Carbon\Carbon;
 
-class SellerPromotion extends baseModel
+class SellerPromotion extends BaseModel
 {
     const TABLE = 'seller_promotions';
 
     const COLUMN_SELLER_ID = 'seller_id';
+    const COLUMN_TITLE = 'title';
     const COLUMN_PRODUCT_URL = 'url';
     const COLUMN_FULL_PRICE = 'full_price';
     const COLUMN_TESTER_PRICE = 'tester_price';
     const COLUMN_AVAILABLE_PRODUCTS_COUNT = 'available_product_count';
     const COLUMN_USED_PRODUCTS_COUNT = 'used_product_count';
     const COLUMN_MIN_USER_EXPERIENCE = 'minimum_user_experience';
+    const COLUMN_IMAGE = 'image';
     const COLUMN_START_AT = 'start_at';
     const COLUMN_END_AT = 'end_at';
+
+    const PROMOTION_SELLER_CACHE_KEY = 'promotion:seller';
+
+    protected $guarded = [];
 
 
     public function getSellerId(): int
@@ -123,4 +129,39 @@ class SellerPromotion extends baseModel
         $this->{self::COLUMN_END_AT} = $value;
         return $this;
     }
+
+    public static function getSellerPromotionCacheTag(int $sellerId) {
+        return self::PROMOTION_SELLER_CACHE_KEY.':'.$sellerId;
+    }
+
+
+    public static function getBySellerId(int $sellerId, int $currentPage)
+    {
+        return \Cache::tags([self::getSellerPromotionCacheTag($sellerId)])->remember('page:'.$currentPage,300, function () use ($sellerId, $currentPage) {
+            return SellerPromotion::where(self::COLUMN_SELLER_ID, '=', $sellerId)->orderBy('id', 'desc')->paginate(10, ['*'], 'page', $currentPage);
+        });
+    }
+
+    public function save(array $options = [])
+    {
+        $result = parent::save($options);
+        if ($result) {
+            $this->forgetIdCache();
+        }
+    }
+    public function delete()
+    {
+        $result = parent::delete();
+        if ($result) {
+            $this->forgetIdCache();
+        }
+        return $result;
+    }
+
+    private function forgetIdCache()
+    {
+        $cacheTag = self::getSellerPromotionCacheTag($this->getSellerId());
+        \Cache::tags([$cacheTag])->flush();
+    }
+
 }
