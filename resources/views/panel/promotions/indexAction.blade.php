@@ -33,7 +33,7 @@
                                 </div>
                             </form>
                             <div class="col-12 text-right">
-                                <a href="{{Route('panel.promotion.edit', 0)}}" class="btn btn-sm btn-primary">اضافه کردن پیشنهاد جدید</a>
+                                <a href="{{Route('panel.promotion.edit', 0)}}" class="btn btn-sm btn-rose">اضافه کردن پیشنهاد جدید</a>
                             </div>
                             <div class="table-responsive">
                                 <table class="table">
@@ -75,7 +75,7 @@
                                                 {{$promotion['used_product_count']}}
                                             </td>
                                             <td>
-                                                <a href="{{Route('panel.promotion.edit', $promotion['id'])}}"><button class="btn btn-primary btn-round">ویرایش</button></a>
+                                                <a href="{{Route('panel.promotion.edit', $promotion['id'])}}"><button class="btn btn-rose btn-round">ویرایش</button></a>
                                             </td>
                                         </tr>
                                     @endforeach

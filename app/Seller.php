@@ -13,13 +13,32 @@ class Seller extends Authenticatable
     const TABLE = 'sellers';
     const COLUMN_ID = 'id';
 
+    const STATUS_NEW = 'new';
+    const STATUS_PENDING = 'pending';
+    const STATUS_CONFIRMED = 'confirmed';
+    const STATUS_LIMITED = 'limited'; // Expired contract
+    const STATUS_RESTRICTED = 'restricted'; // Expired contract
+    const STATUS_BLOCKED = 'blocked'; // delete accounts, due to history tracking
+    const STATUS_DELETED = 'deleted'; // delete accounts, due to history tracking
+
+    const STATUS_ALL = [
+        self::STATUS_NEW,
+        self::STATUS_PENDING,
+        self::STATUS_LIMITED,
+        self::STATUS_CONFIRMED,
+        self::STATUS_RESTRICTED,
+        self::STATUS_BLOCKED,
+        self::STATUS_DELETED
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
+     *
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone'
+        'name', 'email', 'password', 'phone', 'email_verified_at', 'phone_verified_at', 'status'
     ];
 
     /**
@@ -38,6 +57,7 @@ class Seller extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phone_verified_at' => 'datetime',
     ];
 
     public function getId(): int
@@ -48,10 +68,22 @@ class Seller extends Authenticatable
     {
         return $this->name;
     }
-    public function getEmail(): string
+
+    public function getEmail(): ?string
     {
         return $this->email;
     }
+
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
     public function getFirstName(): string
     {
         if ($this->name) {

@@ -30,9 +30,9 @@
                                         </div>
                                     </div>
                                 @endif
-                                <div class="row">
+                                <div class="row justify-content-center">
                                     <label class="col-sm-2 col-form-label">{{ __('عنوان') }}</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-4">
                                         <div class="form-group{{ $errors->has('title') ? ' has-danger' : '' }}">
                                             <input class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
                                                    name="title" id="input-title" type="text"
@@ -46,9 +46,9 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="row justify-content-center">
                                     <label class="col-sm-2 col-form-label">{{ __('لینک') }}</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-4">
                                         <div class="form-group{{ $errors->has('url') ? ' has-danger' : '' }}">
                                             <input class="form-control{{ $errors->has('url') ? ' is-invalid' : '' }}"
                                                    name="url" id="input-url" type="text"
@@ -62,9 +62,9 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <label class="col-sm-4 col-form-label"> قیمت اصلی محصول (تومان)</label>
-                                    <div class="col-sm-7">
+                                <div class="row justify-content-center">
+                                    <label class="col-sm-2 col-form-label"> قیمت اصلی محصول (تومان)</label>
+                                    <div class="col-sm-4">
                                         <input type="number"
                                                name="full_price"
                                                id="input-full_price"
@@ -80,9 +80,9 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <label class="col-sm-4 col-form-label"> قیمت محصول برای تستر (تومان)</label>
-                                    <div class="col-sm-7">
+                                <div class="row justify-content-center">
+                                    <label class="col-sm-2 col-form-label"> قیمت محصول برای تستر (تومان)</label>
+                                    <div class="col-sm-4">
                                         <input type="number"
                                                name="tester_price"
                                                id="input-tester_price"
@@ -98,9 +98,9 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <label class="col-sm-4 col-form-label">تعداد محصول</label>
-                                    <div class="col-sm-7">
+                                <div class="row justify-content-center">
+                                    <label class="col-sm-2 col-form-label">تعداد محصول</label>
+                                    <div class="col-sm-4">
                                         <input type="number"
                                                name="available_product_count"
                                                id="input-available_product_count"
@@ -115,9 +115,9 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <label class="col-sm-4 col-form-label">حداقل امتیاز مشتری برای این پیشنهاد</label>
-                                    <div class="col-sm-7">
+                                <div class="row justify-content-center">
+                                    <label class="col-sm-2 col-form-label">حداقل امتیاز مشتری برای این پیشنهاد</label>
+                                    <div class="col-sm-4">
                                         <input type="number"
                                                name="minimum_user_experience"
                                                id="input-minimum_user_experience"
@@ -131,9 +131,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <label class="col-sm-4 col-form-label">تاریخ شروع</label>
-                                    <div class="col-sm-7">
+                                <div class="row justify-content-center">
+                                    <label class="col-sm-2 col-form-label">تاریخ شروع</label>
+                                    <div class="col-sm-4">
                                         <input type="text" name="start_at" value="{{$promotion['start_at'] }}"
                                                id="input-start_at"/>
                                         <input type="hidden" name="timpestamp-start_at" value="" id="timestamp-start_at"/>
@@ -147,9 +147,9 @@
                                 </div>
 
 
-                                <div class="row">
-                                    <label class="col-sm-4 col-form-label">تاریخ پایان</label>
-                                    <div class="col-sm-7">
+                                <div class="row justify-content-center">
+                                    <label class="col-sm-2 col-form-label">تاریخ پایان</label>
+                                    <div class="col-sm-4">
 
                                         <input type="text" name="end_at" value="{{$promotion['end_at'] }}"
                                                id="input-end_at"/>
@@ -163,9 +163,9 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <label class="col-sm-4 col-form-label">تصویر</label>
-                                    <div class="col-sm-7">
+                                <div class="row justify-content-center">
+                                    <label class="col-sm-2 col-form-label">تصویر</label>
+                                    <div class="col-sm-4">
                                         <input type="file" name="image" id="input-image" accept="image/x-png,image/gif,image/jpeg"/>
                                         <div class="form-group{{ $errors->has('image') ? ' has-danger' : '' }}">
                                             @if ($errors->has('image'))
@@ -176,9 +176,9 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="row justify-content-center">
                                     <label class="col-sm-2 col-form-label">{{ __('فعال') }}</label>
-                                    <div class="col-sm-1">
+                                    <div class="col-sm-4">
                                         <div class="form-group{{ $errors->has('active') ? ' has-danger' : '' }}">
                                             <input class="form-control{{ $errors->has('active') ? ' is-invalid' : '' }}"
                                                    name="active" id="input-active"
@@ -191,8 +191,8 @@
                                     </div>
                                 </div>
 
-                                <div class="card-footer ml-auto mr-auto">
-                                    <button type="submit" class="btn btn-primary js-submit">{{ __('ذخیره') }}</button>
+                                <div class="card-footer ml-auto mr-auto justify-content-center">
+                                    <button type="submit" class="btn btn-rose js-submit">{{ __('ذخیره') }}</button>
                                 </div>
                             </div>
                         </div>

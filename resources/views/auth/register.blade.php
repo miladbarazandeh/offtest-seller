@@ -94,7 +94,7 @@
                             </div>
                         </div>
                         <div class="card-footer justify-content-center">
-                            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Register') }}</button>
+                            <button type="submit" class="btn btn-rose btn-link btn-lg">{{ __('Register') }}</button>
                         </div>
                     </div>
                 </form>

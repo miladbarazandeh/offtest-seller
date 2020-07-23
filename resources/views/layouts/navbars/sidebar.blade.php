@@ -12,6 +12,12 @@
             <p>{{ __('صفحه اصلی') }}</p>
         </a>
       </li>
+      <li class="nav-item{{ $activePage == 'profile' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('panel.profile') }}">
+          <i class="material-icons">how_to_reg</i>
+          <p>{{ __('پروفایل') }}</p>
+        </a>
+      </li>
       <li class="nav-item{{ $activePage == 'promotions' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('panel.promotions') }}">
           <i class="material-icons">list_alt</i>
