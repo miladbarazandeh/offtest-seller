@@ -11,8 +11,10 @@ namespace App\Http\Controllers;
 
 use App\Seller;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ProfileController extends Controller
 {
@@ -91,26 +93,33 @@ class ProfileController extends Controller
 
     public function sendVerificationSms()
     {
+        $ttl = 180;
         /** @var Seller $seller */
         $seller = Auth::user();
         if ($seller->isPhoneVerified()) {
-            throw new \Exception('already verified');
+            return redirect()->route('panel.profile');
         }
-        $generatedKey = rand(10000, 99999);
-        \Cache::store('file')->set($this->getSmsCacheKey($seller->getId()), $generatedKey, 180);
-        $body = View('panel.profile.verification', ['code' => $generatedKey])->render();
-        try{
-            $api = new \Kavenegar\KavenegarApi( "646D4F564B626248587264375A3058444F354C496A61664967353671374368326E42464C4D2F50464C61633D" );
+        $keyData = \Cache::store('file')->get($this->getSmsCacheKey($seller->getId()));
+        if (!$keyData) {
+            $keyData = [
+                'code' => rand(10000, 99999),
+                'time' => Carbon::now()
+            ];
+            \Cache::store('file')->set($this->getSmsCacheKey($seller->getId()), $keyData, $ttl);
+        }
+        $timePassed = Carbon::now()->diffInSeconds($keyData['time']);
+        $remainingTime = $ttl - $timePassed;
+        $body = View('panel.profile.verification', ['code' => $keyData['code']])->render();
+        try {
+            $api = new \Kavenegar\KavenegarApi("646D4F564B626248587264375A3058444F354C496A61664967353671374368326E42464C4D2F50464C61633D");
             $sender = "10004346";
             $receptor = array($seller->getPhone());
-            $api->Send($sender,$receptor,$body);
+            $api->Send($sender, $receptor, $body);
 
-            return new JsonResponse(['message' => 'success']);
-        }
-        catch(\Kavenegar\Exceptions\ApiException $e){
+            return view('panel.profile.verificationAction', ['time' => $remainingTime]);
+        } catch (\Kavenegar\Exceptions\ApiException $e) {
             return new JsonResponse(['message' => 'error'], 400);
-        }
-        catch(\Kavenegar\Exceptions\HttpException $e){
+        } catch (\Kavenegar\Exceptions\HttpException $e) {
             return new JsonResponse(['message' => 'error'], 400);
         } catch (\Exception $exception) {
             return new JsonResponse(['message' => $exception->getMessage()], 400);
@@ -118,29 +127,33 @@ class ProfileController extends Controller
     }
 
 
-//    public function sendVerifySms(Request $request)
-//    {
-//        $this->validate($request, [
-//            'code' => ['required', 'numeric', 'max:255']
-//        ]);
-//
-//        $code = $request->get('code');
-//
-//        /** @var Seller $seller */
-//        $seller = Auth::user();
-//        if ($seller->isPhoneVerified()) {
-//            throw new \Exception('already verified');
-//        }
-//        $sellerCode = \Cache::store('file')->get($this->getSmsCacheKey($seller->getId()));
-//        \Cache::store('file')->forget($this->getSmsCacheKey($seller->getId()));
-//
-//        if ($sellerCode == $code) {
-//            $seller
-//        }
-//    }
-
-    private function getSmsCacheKey($sellerId) :string
+    public function verifySmsCode(Request $request)
     {
-        return 'sms:verification:'.$sellerId;
+        $this->validate($request, [
+            'code' => ['required', 'numeric']
+        ]);
+
+        $code = $request->get('code');
+
+
+        /** @var Seller $seller */
+        $seller = Auth::user();
+        if ($seller->isPhoneVerified()) {
+            return redirect()->back()->withErrors(['code' => 'قبلا تایید شده است.']);
+        }
+        $sellerCodeData = \Cache::store('file')->get($this->getSmsCacheKey($seller->getId()));
+        $sellerCode = $sellerCodeData['code'];
+        if ($sellerCode == $code) {
+            $seller->update(['status' => Seller::STATUS_PENDING, 'phone_verified_at' => Carbon::now()]);
+        } else {
+            return redirect()->back()->withErrors(['code' => 'کد وارد شده اشتباه است.']);
+        }
+        \Cache::store('file')->forget($this->getSmsCacheKey($seller->getId()));
+        return redirect()->route('panel.profile')->withStatus(__('تایید شد.'));
+    }
+
+    private function getSmsCacheKey($sellerId): string
+    {
+        return 'sms:verification:' . $sellerId;
     }
 }
