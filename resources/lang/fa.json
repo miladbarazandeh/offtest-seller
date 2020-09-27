@@ -54,5 +54,9 @@
   "Whoops, something went wrong on our servers.": "وای! یک چیزی توی سرور ما درست کار نمی کند.",
   "new": "جدید",
   "pending": "در انتظار تایید",
-  "confirmed" : "تایید شده"
+  "confirmed" : "تایید شده",
+  "limited": "محدود شده",
+  "restricted": "محدود شده",
+  "blocked": "بلاک شده",
+  "deleted": "حذف شده"
 }
