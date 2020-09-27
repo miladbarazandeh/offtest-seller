@@ -39,7 +39,7 @@
                                 <i class="material-icons">local_offer</i>
                             </div>
                             <p class="card-category">پیشنهادات فعال</p>
-                            <h3 class="card-title">۰
+                            <h3 class="card-title">{{convertToFa($promotionCount)}}
                                 <small>پیشنهاد</small>
                             </h3>
                         </div>

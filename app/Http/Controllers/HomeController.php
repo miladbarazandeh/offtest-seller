@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SellerPromotion;
+use App\Seller;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('panel.home');
+        /** @var Seller $seller */
+        $seller = Auth()->user();
+        $data['status'] = $seller->getStatus();
+        $data['promotionCount'] = SellerPromotion::getBySellerActivePromotionCount($seller->getId());
+        return view('panel.home', $data);
     }
 }
