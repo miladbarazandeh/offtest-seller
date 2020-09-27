@@ -11,11 +11,23 @@
                                 <i class="material-icons">account_box</i>
                             </div>
                             <p class="card-category">وضعیت حساب کاربری</p>
-                            <h3 class="card-title">در انتظار تایید</h3>
+                            <h3 class="card-title">{{__($status)}}</h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
-                                <i class="material-icons">policy</i> مدارک خود را تکمیل کنید.
+                                @if ($status == 'pending' or $status == 'new')
+                                    <i class="material-icons">policy</i>
+                                    مدارک خود را تکمیل کنید.
+                                @elseif ($status == 'confirmed')
+                                    <i class="material-icons">check_box</i>
+                                    حساب کاربری شما فعال است.
+                                @elseif ($status == 'restricted' or $status == 'limited')
+                                    <i class="material-icons">policy</i>
+                                    حساب کاربری شما محدود شده است.
+                                @elseif ($status == 'blocked')
+                                    <i class="material-icons">policy</i>
+                                    حساب کاربری شما بلاک شده است.
+                                @endif
                             </div>
                         </div>
                     </div>
