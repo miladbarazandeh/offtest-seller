@@ -46,7 +46,7 @@
                         <div class="card-footer">
                             <div class="stats">
                                 <i class="material-icons text-success">add</i>
-                                <a href="#pablo">پیشنهاد جدید</a>
+                                <a href="{{route('panel.promotions')}}">پیشنهاد جدید</a>
                             </div>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
                                 <i class="material-icons">pending_actions</i>
                             </div>
                             <p class="card-category">پیشنهادات در انتظار تایید</p>
-                            <h3 class="card-title">۱
+                            <h3 class="card-title">{{convertToFa($pendingPromotionCount)}}
                                 <small>پیشنهاد</small>
                             </h3>
                         </div>
