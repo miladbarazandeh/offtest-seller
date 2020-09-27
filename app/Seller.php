@@ -84,6 +84,11 @@ class Seller extends Authenticatable
         return $this->status;
     }
 
+    public function isPhoneVerified() : bool
+    {
+        return $this->phone_verified_at != null;
+    }
+
     public function getFirstName(): string
     {
         if ($this->name) {

@@ -23,3 +23,4 @@ Route::post('promotion-edit', 'PromotionController@editSaveAction')->name('panel
 Route::get('profile', 'ProfileController@indexAction')->name('panel.profile');
 Route::get('profile-edit', 'ProfileController@editAction')->name('panel.profile.edit');
 Route::post('profile-edit', 'ProfileController@editSaveAction')->name('panel.profile.edit.save');
+Route::get('send-verification-sms', 'ProfileController@sendVerificationSms')->name('panel.profile.verification');

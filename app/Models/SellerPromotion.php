@@ -8,6 +8,18 @@ class SellerPromotion extends BaseModel
 {
     const TABLE = 'seller_promotions';
 
+    const STATUS_NEW = 'new';
+    const STATUS_PENDING = 'pending';
+    const STATUS_CONFIRMED = 'confirmed';
+    const STATUS_DELETED = 'deleted';
+
+    const STATUS_ALL = [
+        self::STATUS_NEW,
+        self::STATUS_PENDING,
+        self::STATUS_CONFIRMED,
+        self::STATUS_DELETED
+    ];
+
     const COLUMN_SELLER_ID = 'seller_id';
     const COLUMN_TITLE = 'title';
     const COLUMN_PRODUCT_URL = 'url';
@@ -16,6 +28,7 @@ class SellerPromotion extends BaseModel
     const COLUMN_AVAILABLE_PRODUCTS_COUNT = 'available_product_count';
     const COLUMN_USED_PRODUCTS_COUNT = 'used_product_count';
     const COLUMN_MIN_USER_EXPERIENCE = 'minimum_user_experience';
+    const COLUMN_STATUS= 'minimum_user_experience';
     const COLUMN_IMAGE = 'image';
     const COLUMN_START_AT = 'start_at';
     const COLUMN_END_AT = 'end_at';
@@ -72,6 +85,17 @@ class SellerPromotion extends BaseModel
     public function setTesterPrice(int $value): self
     {
         $this->{self::COLUMN_TESTER_PRICE} = $value;
+        return $this;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->{self::COLUMN_STATUS};
+    }
+
+    public function setStatus(string $value): self
+    {
+        $this->{self::COLUMN_STATUS} = $value;
         return $this;
     }
 
