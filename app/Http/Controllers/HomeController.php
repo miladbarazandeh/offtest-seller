@@ -29,6 +29,7 @@ class HomeController extends Controller
         $seller = Auth()->user();
         $data['status'] = $seller->getStatus();
         $data['promotionCount'] = SellerPromotion::getBySellerActivePromotionCount($seller->getId());
+        $data['pendingPromotionCount'] = SellerPromotion::getBySellerPendingPromotionCount($seller->getId());
         return view('panel.home', $data);
     }
 }

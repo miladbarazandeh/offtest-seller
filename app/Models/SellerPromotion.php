@@ -176,6 +176,16 @@ class SellerPromotion extends BaseModel
             ->count();
     }
 
+    public static function getBySellerPendingPromotionCount(int $sellerId)
+    {
+        $now = Carbon::now();
+        return SellerPromotion::where(self::COLUMN_SELLER_ID, '=', $sellerId)
+            ->whereIn(self::COLUMN_STATUS, [SellerPromotion::STATUS_NEW, SellerPromotion::STATUS_PENDING])
+            ->where(self::COLUMN_START_AT, '<', $now)
+            ->where(self::COLUMN_END_AT, '>', $now)
+            ->count();
+    }
+
     public function save(array $options = [])
     {
         $result = parent::save($options);
