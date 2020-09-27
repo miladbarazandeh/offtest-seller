@@ -77,6 +77,16 @@
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="{{ asset('material') }}/demo/demo.js"></script>
 <script src="{{ asset('material') }}/js/settings.js"></script>
+<script>
+    function translateFa(n) {
+        const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        return n
+            .toString()
+            .split('')
+            .map(x => farsiDigits[x])
+            .join('');
+    }
+</script>
 @stack('js')
 </body>
 </html>

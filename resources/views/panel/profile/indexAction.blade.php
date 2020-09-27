@@ -10,6 +10,19 @@
                             <p class="card-category">پروفایل</p>
                         </div>
                         <div class="card-body ">
+                            @if (session('status'))
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <div class="alert alert-success">
+                                            <button type="button" class="close" data-dismiss="alert"
+                                                    aria-label="Close">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                            <span>{{ session('status') }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="row">
                                 <div class="col-sm-4">
                                     <label class="col-sm-4 col-form-label">نام</label>

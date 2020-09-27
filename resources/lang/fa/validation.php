@@ -207,5 +207,6 @@ return [
         'tester_price' => 'قیمت تستر',
         'minimum_user_experience' => 'حداقل امتیاز مشتری',
         'available_product_count' => 'تعداد محصول',
+        'code' => 'کد'
     ],
 ];
