@@ -28,7 +28,7 @@ class SellerPromotion extends BaseModel
     const COLUMN_AVAILABLE_PRODUCTS_COUNT = 'available_product_count';
     const COLUMN_USED_PRODUCTS_COUNT = 'used_product_count';
     const COLUMN_MIN_USER_EXPERIENCE = 'minimum_user_experience';
-    const COLUMN_STATUS= 'minimum_user_experience';
+    const COLUMN_STATUS= 'status';
     const COLUMN_IMAGE = 'image';
     const COLUMN_START_AT = 'start_at';
     const COLUMN_END_AT = 'end_at';
@@ -164,6 +164,16 @@ class SellerPromotion extends BaseModel
         return \Cache::tags([self::getSellerPromotionCacheTag($sellerId)])->remember('page:'.$currentPage,300, function () use ($sellerId, $currentPage) {
             return SellerPromotion::where(self::COLUMN_SELLER_ID, '=', $sellerId)->orderBy('id', 'desc')->paginate(10, ['*'], 'page', $currentPage);
         });
+    }
+
+    public static function getBySellerActivePromotionCount(int $sellerId)
+    {
+        $now = Carbon::now();
+        return SellerPromotion::where(self::COLUMN_SELLER_ID, '=', $sellerId)
+            ->where(self::COLUMN_STATUS, SellerPromotion::STATUS_CONFIRMED)
+            ->where(self::COLUMN_START_AT, '<', $now)
+            ->where(self::COLUMN_END_AT, '>', $now)
+            ->count();
     }
 
     public function save(array $options = [])
