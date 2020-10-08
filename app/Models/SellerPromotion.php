@@ -22,6 +22,7 @@ class SellerPromotion extends BaseModel
 
     const COLUMN_SELLER_ID = 'seller_id';
     const COLUMN_TITLE = 'title';
+    const COLUMN_DESCRIPTION = 'description';
     const COLUMN_PRODUCT_URL = 'url';
     const COLUMN_FULL_PRICE = 'full_price';
     const COLUMN_TESTER_PRICE = 'tester_price';

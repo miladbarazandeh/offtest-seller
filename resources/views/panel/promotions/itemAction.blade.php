@@ -46,6 +46,21 @@
                                     </div>
                                 </div>
 
+                                    <div class="row justify-content-center">
+                                        <label class="col-sm-2 col-form-label">{{ __('توضیحات') }}</label>
+                                        <div class="col-sm-4">
+                                            <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
+                                                <textarea class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
+                                                       name="description" id="input-description" type="text"
+                                                       required="true" aria-required="true">{{ old('description', $promotion['description']) }}</textarea>
+                                                @if ($errors->has('description'))
+                                                    <span id="description-error" class="error text-danger"
+                                                          for="input-description">{{ $errors->first('description') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 <div class="row justify-content-center">
                                     <label class="col-sm-2 col-form-label">{{ __('لینک') }}</label>
                                     <div class="col-sm-4">
@@ -165,8 +180,11 @@
 
                                 <div class="row justify-content-center">
                                     <label class="col-sm-2 col-form-label">تصویر</label>
+                                    @if($promotion['image'])
+                                        <img width="300px" height="300px" src="{{ route('image.displayImage', $promotion['image']) }}" alt="" title="">
+                                    @endif
                                     <div class="col-sm-4">
-                                        <input type="file" name="image" id="input-image" accept="image/x-png,image/gif,image/jpeg"/>
+                                        <input type="file" name="image" id="input-image" accept="image/x-png,image/jpeg"/>
                                         <div class="form-group{{ $errors->has('image') ? ' has-danger' : '' }}">
                                             @if ($errors->has('image'))
                                                 <span id="image-error" class="error text-danger"

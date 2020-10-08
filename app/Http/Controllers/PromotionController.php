@@ -14,6 +14,8 @@ use App\Seller;
 use Auth;
 use Illuminate\Http\Request;
 use DateTime;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 
 class PromotionController extends Controller
 {
@@ -63,18 +65,26 @@ class PromotionController extends Controller
         $seller = Auth::user();
         $id = $request->get('id');
         $title = $request->get('title');
+        $description = $request->get('description');
         $fullPrice = $request->get('full_price');
         $testerPrice = $request->get('tester_price');
         $url = $request->get('url');
         $productCount = $request->get('available_product_count');
         $minimumUserPoint = $request->get('minimum_user_experience');
-        $startAt = new DateTime('@'.$request->get('timpestamp-start_at'), new \DateTimeZone('Asia/Tehran'));
-        $endAt = new DateTime('@'.$request->get('timpestamp-end_at'));
+        $startAt = new DateTime('@' . $request->get('timpestamp-start_at'), new \DateTimeZone('Asia/Tehran'));
+        $endAt = new DateTime('@' . $request->get('timpestamp-end_at'));
         $endAt->setTimezone(new \DateTimeZone('Asia/Tehran'));
         $startAt->setTimezone(new \DateTimeZone('Asia/Tehran'));
 
+        if ($request->has('image')) {
+            $imageUrl = $request->file('image')->store('');
+        } elseif ($id == 0) {
+            return back()->withErrors(['image' => 'تصویر بارگذاری نشده است.']);
+        }
+
         $data = [
             'title' => $title,
+            'description' => $description,
             'url' => $url,
             'full_price' => $fullPrice,
             'tester_price' => $testerPrice,
@@ -84,6 +94,10 @@ class PromotionController extends Controller
             'end_at' => $endAt,
             'seller_id' => $seller->getId()
         ];
+
+        if (!empty($imageUrl)) {
+            $data['image'] = $imageUrl;
+        }
 
 
         if ($id) {
@@ -105,6 +119,7 @@ class PromotionController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:100',
+            'description' => 'required|min:3|max:1000',
             'url' => 'required|max:100|url',
             'full_price' => 'required|integer|min:0',
             'tester_price' => 'required|integer|min:0',
@@ -112,7 +127,8 @@ class PromotionController extends Controller
             'minimum_user_experience' => 'required|integer|min:0',
             'timpestamp-start_at' => 'required|integer|min:0',
             'timpestamp-end_at' => 'required|integer|min:0',
-            'image' => 'file|size:2048'
+            'image' => 'file|max:2048|mimes:jpeg,png'
         ]);
     }
+
 }

@@ -113,7 +113,7 @@ abstract class BaseModel extends Model
 
     /**
      * @param int $id
-     * @return $this
+     * @return SellerPromotion
      */
     public static function getById(int $id)
     {

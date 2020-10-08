@@ -25,3 +25,5 @@ Route::get('profile-edit', 'ProfileController@editAction')->name('panel.profile.
 Route::post('profile-edit', 'ProfileController@editSaveAction')->name('panel.profile.edit.save');
 Route::get('send-verification-sms', 'ProfileController@sendVerificationSms')->name('panel.profile.verification');
 Route::post('send-verification-sms', 'ProfileController@verifySmsCode')->name('panel.profile.verify');
+
+Route::get('image/{filename}', 'PublicController@displayImage')->name('image.displayImage');
