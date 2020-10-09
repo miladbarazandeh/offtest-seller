@@ -15,7 +15,7 @@ class CreateSellerPromotionsTable extends BaseMigration
     {
         $table->integer(SellerPromotion::COLUMN_SELLER_ID, false, true)
             ->nullable(false);
-        $table->enum('status', \App\Seller::STATUS_ALL);
+        $table->enum('status', SellerPromotion::STATUS_ALL);
         $table->string(SellerPromotion::COLUMN_TITLE, 100)
             ->nullable(false);
         $table->string(SellerPromotion::COLUMN_PRODUCT_URL, 1000)
