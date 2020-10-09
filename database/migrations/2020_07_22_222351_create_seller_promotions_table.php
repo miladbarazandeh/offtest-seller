@@ -18,6 +18,7 @@ class CreateSellerPromotionsTable extends BaseMigration
         $table->enum('status', SellerPromotion::STATUS_ALL);
         $table->string(SellerPromotion::COLUMN_TITLE, 100)
             ->nullable(false);
+        $table->text(SellerPromotion::COLUMN_DESCRIPTION);
         $table->string(SellerPromotion::COLUMN_PRODUCT_URL, 1000)
             ->nullable(false);
         $table->string(SellerPromotion::COLUMN_IMAGE, 100)
